@@ -16,5 +16,17 @@ namespace Pakowanie_LED
         {
             InitializeComponent();
         }
+        List<string> packingPattern = new List<string>();
+        int modulesPerLayer = 0;
+        private void button1_Click(object sender, EventArgs e)
+        {
+            NewBox newBoxForm = new NewBox(packingPattern, modulesPerLayer,dataGridView1, 0);
+            newBoxForm.Show();
+        }
+
+        private void Form1_Resize(object sender, EventArgs e)
+        {
+            Tools.ResizeGrid(dataGridView1);
+        }
     }
 }
