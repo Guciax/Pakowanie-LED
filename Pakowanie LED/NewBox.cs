@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -12,18 +13,14 @@ namespace Pakowanie_LED
 {
     public partial class NewBox : Form
     {
-        private readonly List<string> packingPattern;
-        private int modulesPerLayer;
+        private readonly Dictionary<int, PackingLayers> packingPattern;
         private readonly DataGridView grid;
-        private  int prevWidth;
 
-        public NewBox(List<string> packingPattern, int modulesPerLayer, DataGridView grid, int prevWidth)
+        public NewBox(Dictionary<int,PackingLayers> packingPattern, DataGridView grid)
         {
             InitializeComponent();
             this.packingPattern = packingPattern;
-            this.modulesPerLayer = modulesPerLayer;
             this.grid = grid;
-            this.prevWidth = prevWidth;
         }
 
         private void listBox1_DrawItem(object sender, DrawItemEventArgs e)
@@ -79,27 +76,47 @@ namespace Pakowanie_LED
             //{
             //    e.DrawBackground();
             //    e.Graphics.DrawString(listBoxBox.Items[e.Index].ToString(), listBoxBox.Font, Brushes.Pink, e.Bounds);
-            }
+        }
        
         
         
         private void button5_Click(object sender, EventArgs e)
         {
-            packingPattern.AddRange(listBoxBox.Items.OfType<string>().ToArray());
-            modulesPerLayer = (int)numericUpDown1.Value;
+            for (int i = listBoxBox.Items.Count - 1; i > -1; i--) 
+            {
+                List<string> modules = new List<string>();
+                for(int m=0;m<numericUpDown1.Value;m++)
+                {
+                        modules.Add("");
+                }
+
+                PackingLayers newLayer = new PackingLayers(listBoxBox.Items[i].ToString(), false, new DateTime(1900, 01, 01), (int)numericUpDown1.Value, modules);
+                packingPattern.Add(i,newLayer);
+            }
+
             grid.Rows.Clear();
             grid.Columns.Clear();
 
-            for (int i=0;i<modulesPerLayer;i++)
+            for (int i = 0; i < numericUpDown1.Value; i++) 
             {
                 grid.Columns.Add("C"+(i + 1).ToString(), (i + 1).ToString());
             }
-            
-            grid.Rows.Add(listBoxBox.Items.Count);
+
+            for (int r = 0; r < listBoxBox.Items.Count; r++)
+            {
+                grid.Rows.Add(listBoxBox.Items.Count);
+
+            }
             Tools.ResizeGrid(grid);
+            this.Visible = false;
+            Tools.NewQrScanned(packingPattern, "");
 
             this.Close();
         }
+
+        private void listBoxBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
-    
 }

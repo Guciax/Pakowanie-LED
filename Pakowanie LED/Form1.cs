@@ -16,17 +16,28 @@ namespace Pakowanie_LED
         {
             InitializeComponent();
         }
-        List<string> packingPattern = new List<string>();
-        int modulesPerLayer = 0;
+        Dictionary<int, PackingLayers> packingPattern = new Dictionary<int, PackingLayers>();
+
+        List<PackingLayers> currentBox = new List<PackingLayers>();
+
         private void button1_Click(object sender, EventArgs e)
         {
-            NewBox newBoxForm = new NewBox(packingPattern, modulesPerLayer,dataGridView1, 0);
+            NewBox newBoxForm = new NewBox(packingPattern, dataGridView1);
             newBoxForm.Show();
         }
 
         private void Form1_Resize(object sender, EventArgs e)
         {
             Tools.ResizeGrid(dataGridView1);
+        }
+
+        private void textBox1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Return)
+            {
+                Tools.NewQrScanned(packingPattern, textBox1.Text);
+                Tools.UpdateLayerColors(dataGridView1, packingPattern);
+            }
         }
     }
 }

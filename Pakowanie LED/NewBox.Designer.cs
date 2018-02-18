@@ -33,13 +33,15 @@
             this.button2 = new System.Windows.Forms.Button();
             this.labelSummary = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.comboBoxPart = new System.Windows.Forms.ComboBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.label1 = new System.Windows.Forms.Label();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.listBoxBox = new System.Windows.Forms.ListBox();
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
-            this.comboBoxPart = new System.Windows.Forms.ComboBox();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            this.label1 = new System.Windows.Forms.Label();
             this.button5 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -98,8 +100,23 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Schemat";
             // 
+            // comboBoxPart
+            // 
+            this.comboBoxPart.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.comboBoxPart.FormattingEnabled = true;
+            this.comboBoxPart.Items.AddRange(new object[] {
+            "Warstwa wyrobów",
+            "Przekładka",
+            "Folia"});
+            this.comboBoxPart.Location = new System.Drawing.Point(9, 14);
+            this.comboBoxPart.Name = "comboBoxPart";
+            this.comboBoxPart.Size = new System.Drawing.Size(160, 28);
+            this.comboBoxPart.TabIndex = 9;
+            // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.radioButton2);
+            this.groupBox2.Controls.Add(this.radioButton1);
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Controls.Add(this.numericUpDown1);
             this.groupBox2.Location = new System.Drawing.Point(12, 240);
@@ -109,15 +126,58 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "groupBox2";
             // 
+            // radioButton2
+            // 
+            this.radioButton2.AutoSize = true;
+            this.radioButton2.Location = new System.Drawing.Point(6, 42);
+            this.radioButton2.Name = "radioButton2";
+            this.radioButton2.Size = new System.Drawing.Size(182, 17);
+            this.radioButton2.TabIndex = 11;
+            this.radioButton2.Text = "Różna ilość wyrobów na warstwę";
+            this.radioButton2.UseVisualStyleBackColor = true;
+            // 
+            // radioButton1
+            // 
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Checked = true;
+            this.radioButton1.Location = new System.Drawing.Point(6, 19);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(206, 17);
+            this.radioButton1.TabIndex = 10;
+            this.radioButton1.TabStop = true;
+            this.radioButton1.Text = "Jednakowa ilość wyrobów na warstwę";
+            this.radioButton1.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label1.Location = new System.Drawing.Point(3, 89);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(172, 17);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "Ilość wyrobów na warstwę:";
+            // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.Location = new System.Drawing.Point(6, 109);
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDown1.TabIndex = 0;
+            this.numericUpDown1.Value = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+            // 
             // listBoxBox
             // 
-            this.listBoxBox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.listBoxBox.FormattingEnabled = true;
             this.listBoxBox.Location = new System.Drawing.Point(300, 56);
             this.listBoxBox.Name = "listBoxBox";
             this.listBoxBox.Size = new System.Drawing.Size(266, 420);
             this.listBoxBox.TabIndex = 6;
-            this.listBoxBox.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.listBoxBox_DrawItem);
+            this.listBoxBox.SelectedIndexChanged += new System.EventHandler(this.listBoxBox_SelectedIndexChanged);
             // 
             // button3
             // 
@@ -138,41 +198,6 @@
             this.button4.Text = "Usuń zaznaczone";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
-            // 
-            // comboBoxPart
-            // 
-            this.comboBoxPart.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.comboBoxPart.FormattingEnabled = true;
-            this.comboBoxPart.Items.AddRange(new object[] {
-            "Warstwa wyrobów",
-            "Przekładka",
-            "Folia"});
-            this.comboBoxPart.Location = new System.Drawing.Point(9, 14);
-            this.comboBoxPart.Name = "comboBoxPart";
-            this.comboBoxPart.Size = new System.Drawing.Size(160, 28);
-            this.comboBoxPart.TabIndex = 9;
-            // 
-            // numericUpDown1
-            // 
-            this.numericUpDown1.Location = new System.Drawing.Point(27, 52);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDown1.TabIndex = 0;
-            this.numericUpDown1.Value = new decimal(new int[] {
-            20,
-            0,
-            0,
-            0});
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label1.Location = new System.Drawing.Point(24, 32);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(172, 17);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "Ilość wyrobów na warstwę:";
             // 
             // button5
             // 
@@ -226,5 +251,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.RadioButton radioButton2;
+        private System.Windows.Forms.RadioButton radioButton1;
     }
 }
