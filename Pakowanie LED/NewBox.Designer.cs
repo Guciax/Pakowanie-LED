@@ -43,6 +43,10 @@
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.button6 = new System.Windows.Forms.Button();
+            this.button7 = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
@@ -81,7 +85,7 @@
             // 
             this.labelSummary.AutoSize = true;
             this.labelSummary.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelSummary.Location = new System.Drawing.Point(575, 9);
+            this.labelSummary.Location = new System.Drawing.Point(581, 58);
             this.labelSummary.Name = "labelSummary";
             this.labelSummary.Size = new System.Drawing.Size(46, 17);
             this.labelSummary.TabIndex = 6;
@@ -93,7 +97,7 @@
             this.groupBox1.Controls.Add(this.button2);
             this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Controls.Add(this.listBoxPattern);
-            this.groupBox1.Location = new System.Drawing.Point(6, 8);
+            this.groupBox1.Location = new System.Drawing.Point(12, 57);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(288, 226);
             this.groupBox1.TabIndex = 7;
@@ -119,9 +123,9 @@
             this.groupBox2.Controls.Add(this.radioButton1);
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Controls.Add(this.numericUpDown1);
-            this.groupBox2.Location = new System.Drawing.Point(12, 240);
+            this.groupBox2.Location = new System.Drawing.Point(12, 289);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(282, 236);
+            this.groupBox2.Size = new System.Drawing.Size(288, 236);
             this.groupBox2.TabIndex = 6;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "groupBox2";
@@ -173,7 +177,7 @@
             // listBoxBox
             // 
             this.listBoxBox.FormattingEnabled = true;
-            this.listBoxBox.Location = new System.Drawing.Point(300, 56);
+            this.listBoxBox.Location = new System.Drawing.Point(306, 105);
             this.listBoxBox.Name = "listBoxBox";
             this.listBoxBox.Size = new System.Drawing.Size(266, 420);
             this.listBoxBox.TabIndex = 6;
@@ -181,7 +185,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(300, 16);
+            this.button3.Location = new System.Drawing.Point(306, 65);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(75, 34);
             this.button3.TabIndex = 6;
@@ -191,7 +195,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(381, 16);
+            this.button4.Location = new System.Drawing.Point(387, 65);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(75, 34);
             this.button4.TabIndex = 8;
@@ -201,7 +205,7 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(713, 469);
+            this.button5.Location = new System.Drawing.Point(719, 518);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(75, 23);
             this.button5.TabIndex = 9;
@@ -209,11 +213,54 @@
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
+            // comboBox1
+            // 
+            this.comboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(100, 12);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(279, 28);
+            this.comboBox1.TabIndex = 10;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(600, 518);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(113, 23);
+            this.button6.TabIndex = 11;
+            this.button6.Text = "Zapisz jako...";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
+            // 
+            // button7
+            // 
+            this.button7.Location = new System.Drawing.Point(385, 12);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(75, 28);
+            this.button7.TabIndex = 12;
+            this.button7.Text = "Wczytaj";
+            this.button7.UseVisualStyleBackColor = true;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label2.Location = new System.Drawing.Point(9, 18);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(90, 17);
+            this.label2.TabIndex = 12;
+            this.label2.Text = "Opakowanie:";
+            // 
             // NewBox
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 504);
+            this.ClientSize = new System.Drawing.Size(800, 549);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.button7);
+            this.Controls.Add(this.button6);
+            this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
@@ -227,7 +274,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "NewBox";
-            this.TopMost = true;
+            this.Load += new System.EventHandler(this.NewBox_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
@@ -253,5 +300,9 @@
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Label label2;
     }
 }

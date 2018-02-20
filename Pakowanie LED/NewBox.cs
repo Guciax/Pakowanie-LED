@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
@@ -15,12 +16,16 @@ namespace Pakowanie_LED
     {
         private readonly Dictionary<int, PackingLayers> packingPattern;
         private readonly DataGridView grid;
+        private readonly PictureBox pctBox;
+        private  double totalLed;
 
-        public NewBox(Dictionary<int,PackingLayers> packingPattern, DataGridView grid)
+        public NewBox(Dictionary<int,PackingLayers> packingPattern, DataGridView grid, PictureBox pctBox, double totalLed)
         {
             InitializeComponent();
             this.packingPattern = packingPattern;
             this.grid = grid;
+            this.pctBox = pctBox;
+            this.totalLed = totalLed;
         }
 
         private void listBox1_DrawItem(object sender, DrawItemEventArgs e)
@@ -41,15 +46,22 @@ namespace Pakowanie_LED
 
         private void button3_Click(object sender, EventArgs e)
         {
-            listBoxBox.Items.AddRange(listBoxPattern.Items);
-            UpdateQuantity();
+            if (listBoxPattern.Items.Count > 0)
+            {
+                for (int i=listBoxPattern.Items.Count-1;i>-1;i--)
+                {
+                    listBoxBox.Items.Insert(0, listBoxPattern.Items[i]);
+                }
+                
+                UpdateQuantity();
+            }
         }
-
+        int modulesCount = 0;
         private void UpdateQuantity()
         {
             int foilCount = 0;
             int spacerCount = 0;
-            int modulesCount = 0;
+            modulesCount = 0;
             foreach (var item in listBoxBox.Items)
             {
                 if (item.ToString() == "Folia") foilCount++;
@@ -85,38 +97,75 @@ namespace Pakowanie_LED
             for (int i = listBoxBox.Items.Count - 1; i > -1; i--) 
             {
                 List<string> modules = new List<string>();
-                for(int m=0;m<numericUpDown1.Value;m++)
+                List<DateTime> dates = new List<DateTime>();
+
+                for (int m = 0; m < numericUpDown1.Value; m++) 
                 {
-                        modules.Add("");
+                    modules.Add("");
+                    dates.Add(new DateTime(1900, 01, 01));
                 }
-
-                PackingLayers newLayer = new PackingLayers(listBoxBox.Items[i].ToString(), false, new DateTime(1900, 01, 01), (int)numericUpDown1.Value, modules);
+                PackingLayers newLayer = new PackingLayers(listBoxBox.Items[i].ToString(), false, new DateTime(1900, 01, 01), (int)numericUpDown1.Value, modules, dates);
                 packingPattern.Add(i,newLayer);
+                
             }
 
-            grid.Rows.Clear();
-            grid.Columns.Clear();
-
-            for (int i = 0; i < numericUpDown1.Value; i++) 
-            {
-                grid.Columns.Add("C"+(i + 1).ToString(), (i + 1).ToString());
-            }
-
-            for (int r = 0; r < listBoxBox.Items.Count; r++)
-            {
-                grid.Rows.Add(listBoxBox.Items.Count);
-
-            }
-            Tools.ResizeGrid(grid);
             this.Visible = false;
-            Tools.NewQrScanned(packingPattern, "");
-
+            Tools.UpdateFoilAndSpacerCompletition(packingPattern);
+            pctBox.Image = Tools.DrawBitmap(packingPattern, pctBox);
             this.Close();
         }
 
         private void listBoxBox_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        public static void AddOrUpdateAppSettings(string key, string value)
+        {
+            try
+            {
+                var configFile = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                var settings = configFile.AppSettings.Settings;
+                if (settings[key] == null)
+                {
+                    settings.Add(key, value);
+                }
+                else
+                {
+                    settings[key].Value = value;
+                }
+                configFile.Save(ConfigurationSaveMode.Modified);
+                ConfigurationManager.RefreshSection(configFile.AppSettings.SectionInformation.Name);
+            }
+            catch (ConfigurationErrorsException)
+            {
+                Console.WriteLine("Error writing app settings");
+            }
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            string layers = string.Join(";", listBoxPattern.Items.OfType<string>().ToArray());
+
+            string promptValue = Prompt.ShowDialog("Podaj nazwę", "Nazwa lub 12NC kartonu");
+
+            AddOrUpdateAppSettings(promptValue, layers);
+
+
+        }
+
+        private void NewBox_Load(object sender, EventArgs e)
+        {
+
+            foreach (var key in ConfigurationManager.AppSettings.AllKeys)
+            {
+                comboBox1.Items.Add(key);
+            }
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string value = System.Configuration.ConfigurationManager.AppSettings[comboBox1.Text];
         }
     }
 }

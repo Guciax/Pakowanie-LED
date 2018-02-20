@@ -8,7 +8,7 @@ namespace Pakowanie_LED
 {
     public class PackingLayers
     {
-        public PackingLayers(string layerName, bool completed, DateTime completionTime, int modulesPerLayer,List<string> moduleQrCodes)
+        public PackingLayers(string layerName, bool completed, DateTime completionTime, int modulesPerLayer, List<string> moduleQrCodes, List<DateTime> moduleCompletitionDate)
         {
 
             LayerName = layerName;
@@ -16,13 +16,13 @@ namespace Pakowanie_LED
             CompletionTime = completionTime;
             ModulesPerLayer = modulesPerLayer;
             ModuleQrCodes = moduleQrCodes;
+            ModuleCompletitionDate = moduleCompletitionDate;
         }
-
-
         public string LayerName { get; }
         public bool Completed { get; set; }
         public DateTime CompletionTime { get; set; }
         public int ModulesPerLayer { get; }
         public List<string> ModuleQrCodes { get; set; }
+        public List<DateTime> ModuleCompletitionDate { get; set; }
     }
 }
