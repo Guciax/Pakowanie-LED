@@ -30,18 +30,21 @@ namespace Pakowanie_LED
 
         private void Form1_Resize(object sender, EventArgs e)
         {
-            Tools.ResizeGrid(dataGridView1);
+            pictureBox1.Image = Tools.DrawBitmap(packingPattern, pictureBox1);
         }
 
         private void textBox1_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Return)
             {
-                Tools.AddnewQr(packingPattern, textBox1.Text);
+                Tools.AddnewQr(packingPattern, textBox1.Text, pictureBox1);
                 pictureBox1.Image = Tools.DrawBitmap(packingPattern, pictureBox1);
                 label2.Text = Tools.CountLedPanels(packingPattern).ToString() + @"/"+ countPanles();
-                if(packingPattern.Count>1)
-                    labelEffciency.Text = Math.Round(Tools.CountModulesPerHour(packingPattern),0).ToString()+@"/h";
+                if (packingPattern.Count > 1)
+                {
+                    labelEffciency.Text = Math.Round(Tools.CountModulesPerHour(packingPattern), 0).ToString() + @"/h";
+                }
+                textBox1.Text = "";
             }
         }
 
@@ -186,6 +189,39 @@ namespace Pakowanie_LED
                         break;
                     }
                 }
+            }
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            this.ActiveControl = textBox1;
+        }
+
+        private void textBox1_Leave(object sender, EventArgs e)
+        {
+            this.ActiveControl = textBox1;
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (FlexibleMessageBox.Show("Dane zostaną wyczyszczone!!", "Potwierdź", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            {
+
+                foreach (var item in packingPattern)
+                {
+                    item.Value.CompletionTime = new DateTime(1900, 01, 01);
+                    item.Value.Completed = false;
+                    if (item.Value.LayerName == "Warstwa wyrobów")
+                    {
+                        for (int i = 0; i < item.Value.ModuleQrCodes.Count; i++)
+                        {
+                            item.Value.ModuleQrCodes[i] = "";
+                            item.Value.ModuleCompletitionDate[i] = new DateTime(1900, 01, 01);
+                        }
+                    }
+                }
+                Tools.UpdateFoilAndSpacerCompletition(packingPattern);
+                pictureBox1.Image = Tools.DrawBitmap(packingPattern, pictureBox1);
             }
         }
     }

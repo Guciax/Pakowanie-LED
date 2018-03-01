@@ -47,6 +47,7 @@
             this.button6 = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
+            this.button8 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
@@ -205,9 +206,9 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(719, 518);
+            this.button5.Location = new System.Drawing.Point(604, 496);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(75, 23);
+            this.button5.Size = new System.Drawing.Size(108, 41);
             this.button5.TabIndex = 9;
             this.button5.Text = "OK";
             this.button5.UseVisualStyleBackColor = true;
@@ -225,9 +226,9 @@
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(600, 518);
+            this.button6.Location = new System.Drawing.Point(466, 12);
             this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(113, 23);
+            this.button6.Size = new System.Drawing.Size(113, 28);
             this.button6.TabIndex = 11;
             this.button6.Text = "Zapisz jako...";
             this.button6.UseVisualStyleBackColor = true;
@@ -241,6 +242,7 @@
             this.button7.TabIndex = 12;
             this.button7.Text = "Wczytaj";
             this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // label2
             // 
@@ -252,11 +254,22 @@
             this.label2.TabIndex = 12;
             this.label2.Text = "Opakowanie:";
             // 
+            // button8
+            // 
+            this.button8.Location = new System.Drawing.Point(585, 12);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(75, 28);
+            this.button8.TabIndex = 13;
+            this.button8.Text = "Usuń";
+            this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
+            // 
             // NewBox
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 549);
+            this.ClientSize = new System.Drawing.Size(724, 549);
+            this.Controls.Add(this.button8);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.button7);
             this.Controls.Add(this.button6);
@@ -304,5 +317,6 @@
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button button8;
     }
 }

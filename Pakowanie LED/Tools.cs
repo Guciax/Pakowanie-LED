@@ -53,7 +53,9 @@ namespace Pakowanie_LED
                 if (packingLayers[i].LayerName != "Warstwa wyrobów" & !packingLayers[i].Completed)
                 {
                     packingLayers[i].Completed = true;
-                    FlexibleMessageBox.Show("Teraz wastwa: " + packingLayers[i].LayerName, "Nowa warstwwa");
+                    //FlexibleMessageBox.Show("Teraz wastwa: " + packingLayers[i].LayerName, "Nowa warstwwa");
+                    PopupForm popForm = new PopupForm("Teraz wastwa: " + packingLayers[i].LayerName,  3);
+                    popForm.ShowDialog();
                 }
             }
         }
@@ -120,7 +122,7 @@ namespace Pakowanie_LED
                 ledRec.heigth = (canvasHeigth - marginTop - marginBottom - foilRec.heigth * numberOfFoilLayers - spacerRec.heigth * numberOfSpacersLayer) / numberOfLedLayers;
 
                 Pen borderPen = new Pen(Color.Black, 1);
-                System.Drawing.SolidBrush solidGreenBrush = new System.Drawing.SolidBrush(System.Drawing.Color.LightGreen);
+                System.Drawing.SolidBrush solidGreenBrush = new System.Drawing.SolidBrush(System.Drawing.Color.Lime);
                 System.Drawing.SolidBrush solidBlackBrush = new System.Drawing.SolidBrush(System.Drawing.Color.Black);
                 System.Drawing.SolidBrush solidRedBrush = new System.Drawing.SolidBrush(System.Drawing.Color.Red);
                 float y = marginTop;
@@ -202,23 +204,23 @@ namespace Pakowanie_LED
         {
             double result = 0;
             DateTime zeroDate = new DateTime(1900, 01, 01);
-
-            double timePassedSinceFirst = (System.DateTime.Now-packingLayers.SelectMany(s => s.Value.ModuleCompletitionDate.Where(d=>d>zeroDate)).Min()).TotalMinutes;
-            
-
-            if (timePassedSinceFirst>=60)
+            double numberOfPanel = packingLayers.SelectMany(s => s.Value.ModuleCompletitionDate.Where(d => d > zeroDate)).Count();
+            if (numberOfPanel > 1)
             {
-                result = packingLayers.SelectMany(s => s.Value.ModuleCompletitionDate.Where(d => d > zeroDate)).Count()/(timePassedSinceFirst/60);
+                double timePassedSinceFirst = (System.DateTime.Now - packingLayers.SelectMany(s => s.Value.ModuleCompletitionDate.Where(d => d > zeroDate)).Min()).TotalMinutes;
+                if (timePassedSinceFirst >= 60)
+                {
+                    result = packingLayers.SelectMany(s => s.Value.ModuleCompletitionDate.Where(d => d > zeroDate)).Count() / (timePassedSinceFirst / 60);
+                }
+                else
+                {
+                    result = packingLayers.SelectMany(s => s.Value.ModuleCompletitionDate.Where(d => d > zeroDate)).Count() / (timePassedSinceFirst / 60);
+                }
             }
-            else
-            {
-                result = packingLayers.SelectMany(s => s.Value.ModuleCompletitionDate.Where(d => d > zeroDate)).Count() / (timePassedSinceFirst / 60);
-            }
-
             return result;
         }
 
-        public static void AddnewQr(Dictionary<int, PackingLayers> packingLayers, string qrCode)
+        public static void AddnewQr(Dictionary<int, PackingLayers> packingLayers, string qrCode, PictureBox picBox)
         {
             bool panelAdded = false;
             UpdateFoilAndSpacerCompletition(packingLayers);
@@ -237,6 +239,7 @@ namespace Pakowanie_LED
                             if (k == packingLayers[i].ModuleQrCodes.Count - 1)
                             {
                                 packingLayers[i].Completed = true;
+                                picBox.Image = Tools.DrawBitmap(packingLayers, picBox);
                                 Tools.UpdateFoilAndSpacerCompletition(packingLayers);
                             }
                             panelAdded = true;
@@ -250,37 +253,7 @@ namespace Pakowanie_LED
 
         public static void UpdateLayerColors(DataGridView grid, Dictionary<int, PackingLayers> packingLayers)
         {
-            //grid.SuspendLayout();
-            //UpdateFoilAndSpacerCompletition(packingLayers);
 
-            //for (int i = packingLayers.Count - 1; i > -1; i--) 
-            //{
-            //    if (packingLayers[i].LayerName == "Warstwa wyrobów")
-            //    {
-            //        for (int j = 0; j < packingLayers[i].ModuleQrCodes.Count; j++)
-            //        {
-            //            if (packingLayers[i].ModuleQrCodes[j] != "")
-            //                grid.Rows[i].Cells[j].Style.BackColor = System.Drawing.Color.Yellow;
-            //        }
-            //    }
-            //    else
-            //    {
-            //        if (packingLayers[i].LayerName == "Przekładka" & i >= maxFoilOrSpacerIndex)
-            //            foreach (DataGridViewCell cell in grid.Rows[i].Cells)
-            //            {
-            //                cell.Style.BackColor = System.Drawing.Color.Black;
-            //            }
-
-
-            //        if (packingLayers[i].LayerName == "Folia" & i >= maxFoilOrSpacerIndex)
-            //            foreach (DataGridViewCell cell in grid.Rows[i].Cells)
-            //            {
-            //                cell.Style.BackColor = System.Drawing.Color.Red;
-            //            }
-            //    }
-                
-            //}
-            //grid.ResumeLayout();
         }
 
         

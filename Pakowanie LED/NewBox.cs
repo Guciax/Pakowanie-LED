@@ -94,6 +94,7 @@ namespace Pakowanie_LED
         
         private void button5_Click(object sender, EventArgs e)
         {
+            packingPattern.Clear();
             for (int i = listBoxBox.Items.Count - 1; i > -1; i--) 
             {
                 List<string> modules = new List<string>();
@@ -143,20 +144,23 @@ namespace Pakowanie_LED
             }
         }
 
+        private void removeSettingsKey(string key)
+        {
+
+            var m_Configuration = System.Configuration.ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            m_Configuration.AppSettings.Settings.Remove(key);
+            m_Configuration.Save(ConfigurationSaveMode.Modified);
+        }
+
         private void button6_Click(object sender, EventArgs e)
         {
-            string layers = string.Join(";", listBoxPattern.Items.OfType<string>().ToArray());
-
+            string layers = string.Join(";", listBoxBox.Items.OfType<string>().ToArray());
             string promptValue = Prompt.ShowDialog("Podaj nazwę", "Nazwa lub 12NC kartonu");
-
             AddOrUpdateAppSettings(promptValue, layers);
-
-
         }
 
         private void NewBox_Load(object sender, EventArgs e)
         {
-
             foreach (var key in ConfigurationManager.AppSettings.AllKeys)
             {
                 comboBox1.Items.Add(key);
@@ -165,7 +169,27 @@ namespace Pakowanie_LED
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string value = System.Configuration.ConfigurationManager.AppSettings[comboBox1.Text];
+            
+
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            if (comboBox1.Text.Trim().Length > 0)
+            {
+                try
+                {
+                    string[] value = System.Configuration.ConfigurationManager.AppSettings[comboBox1.Text].Split(';');
+                    listBoxBox.Items.AddRange(value);
+                }
+                catch (Exception ex)
+                {  }
+            }
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            removeSettingsKey(comboBox1.Text);
         }
     }
 }
