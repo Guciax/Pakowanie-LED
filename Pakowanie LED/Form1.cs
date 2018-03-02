@@ -206,7 +206,6 @@ namespace Pakowanie_LED
         {
             if (FlexibleMessageBox.Show("Dane zostaną wyczyszczone!!", "Potwierdź", MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
-
                 foreach (var item in packingPattern)
                 {
                     item.Value.CompletionTime = new DateTime(1900, 01, 01);
@@ -220,8 +219,10 @@ namespace Pakowanie_LED
                         }
                     }
                 }
+
                 Tools.UpdateFoilAndSpacerCompletition(packingPattern);
                 pictureBox1.Image = Tools.DrawBitmap(packingPattern, pictureBox1);
+                label2.Text = Tools.CountLedPanels(packingPattern).ToString() + @"/" + countPanles();
             }
         }
     }
