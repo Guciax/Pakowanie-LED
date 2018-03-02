@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
@@ -48,11 +49,10 @@ namespace Pakowanie_LED
                     }
                     textBox1.Text = "";
                     canReadAgain = false;
-                    labelLockCountDown.Text = "5";
+                    labelLockCountDown.Text = "3";
                     labelLockCountDown.Visible = true;
                     labelLockInfo.Text = "Ponowny odczyt za:";
                     timer1.Enabled = true;
-
                 }
                 else
                 {
@@ -208,6 +208,7 @@ namespace Pakowanie_LED
         private void Form1_Load(object sender, EventArgs e)
         {
             this.ActiveControl = textBox1;
+
         }
 
         private void textBox1_Leave(object sender, EventArgs e)
@@ -250,6 +251,19 @@ namespace Pakowanie_LED
                 labelLockCountDown.Visible = false;
                 canReadAgain = true;
                 timer1.Enabled = false;
+            }
+        }
+
+        private void timerEfficiency_Tick(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void efficiencyTick(object sender, EventArgs e)
+        {
+            if (packingPattern.Count > 1)
+            {
+                labelEffciency.Text = Math.Round(Tools.CountModulesPerHour(packingPattern), 0).ToString() + @"/h";
             }
         }
     }

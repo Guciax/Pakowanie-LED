@@ -30,6 +30,8 @@
         {
             this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.labelLockCountDown = new System.Windows.Forms.Label();
+            this.labelLockInfo = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
@@ -47,8 +49,7 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.labelLockInfo = new System.Windows.Forms.Label();
-            this.labelLockCountDown = new System.Windows.Forms.Label();
+            this.timerEfficiency = new System.Windows.Forms.Timer(this.components);
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -78,6 +79,26 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1055, 100);
             this.panel1.TabIndex = 0;
+            // 
+            // labelLockCountDown
+            // 
+            this.labelLockCountDown.AutoSize = true;
+            this.labelLockCountDown.Font = new System.Drawing.Font("Courier New", 30F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelLockCountDown.Location = new System.Drawing.Point(395, 39);
+            this.labelLockCountDown.Name = "labelLockCountDown";
+            this.labelLockCountDown.Size = new System.Drawing.Size(44, 46);
+            this.labelLockCountDown.TabIndex = 11;
+            this.labelLockCountDown.Text = "0";
+            this.labelLockCountDown.Visible = false;
+            // 
+            // labelLockInfo
+            // 
+            this.labelLockInfo.AutoSize = true;
+            this.labelLockInfo.Location = new System.Drawing.Point(382, 12);
+            this.labelLockInfo.Name = "labelLockInfo";
+            this.labelLockInfo.Size = new System.Drawing.Size(91, 13);
+            this.labelLockInfo.TabIndex = 10;
+            this.labelLockInfo.Text = "Zeskanuj kod QR";
             // 
             // button3
             // 
@@ -252,25 +273,10 @@
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // labelLockInfo
+            // timerEfficiency
             // 
-            this.labelLockInfo.AutoSize = true;
-            this.labelLockInfo.Location = new System.Drawing.Point(382, 12);
-            this.labelLockInfo.Name = "labelLockInfo";
-            this.labelLockInfo.Size = new System.Drawing.Size(91, 13);
-            this.labelLockInfo.TabIndex = 10;
-            this.labelLockInfo.Text = "Zeskanuj kod QR";
-            // 
-            // labelLockCountDown
-            // 
-            this.labelLockCountDown.AutoSize = true;
-            this.labelLockCountDown.Font = new System.Drawing.Font("Courier New", 30F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelLockCountDown.Location = new System.Drawing.Point(395, 39);
-            this.labelLockCountDown.Name = "labelLockCountDown";
-            this.labelLockCountDown.Size = new System.Drawing.Size(44, 46);
-            this.labelLockCountDown.TabIndex = 11;
-            this.labelLockCountDown.Text = "0";
-            this.labelLockCountDown.Visible = false;
+            this.timerEfficiency.Interval = 1000;
+            this.timerEfficiency.Tick += new System.EventHandler(this.efficiencyTick);
             // 
             // Form1
             // 
@@ -323,6 +329,7 @@
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Label labelLockCountDown;
         private System.Windows.Forms.Label labelLockInfo;
+        private System.Windows.Forms.Timer timerEfficiency;
     }
 }
 
