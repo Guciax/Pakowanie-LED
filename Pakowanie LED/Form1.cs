@@ -37,14 +37,27 @@ namespace Pakowanie_LED
         {
             if (e.KeyCode == Keys.Return)
             {
-                Tools.AddnewQr(packingPattern, textBox1.Text, pictureBox1);
-                pictureBox1.Image = Tools.DrawBitmap(packingPattern, pictureBox1);
-                label2.Text = Tools.CountLedPanels(packingPattern).ToString() + @"/"+ countPanles();
-                if (packingPattern.Count > 1)
+                if (canReadAgain)
                 {
-                    labelEffciency.Text = Math.Round(Tools.CountModulesPerHour(packingPattern), 0).ToString() + @"/h";
+                    Tools.AddnewQr(packingPattern, textBox1.Text, pictureBox1);
+                    pictureBox1.Image = Tools.DrawBitmap(packingPattern, pictureBox1);
+                    label2.Text = Tools.CountLedPanels(packingPattern).ToString() + @"/" + countPanles();
+                    if (packingPattern.Count > 1)
+                    {
+                        labelEffciency.Text = Math.Round(Tools.CountModulesPerHour(packingPattern), 0).ToString() + @"/h";
+                    }
+                    textBox1.Text = "";
+                    canReadAgain = false;
+                    labelLockCountDown.Text = "5";
+                    labelLockCountDown.Visible = true;
+                    labelLockInfo.Text = "Ponowny odczyt za:";
+                    timer1.Enabled = true;
+
                 }
-                textBox1.Text = "";
+                else
+                {
+                    textBox1.Text = "";
+                }
             }
         }
 
@@ -223,6 +236,20 @@ namespace Pakowanie_LED
                 Tools.UpdateFoilAndSpacerCompletition(packingPattern);
                 pictureBox1.Image = Tools.DrawBitmap(packingPattern, pictureBox1);
                 label2.Text = Tools.CountLedPanels(packingPattern).ToString() + @"/" + countPanles();
+            }
+        }
+        bool canReadAgain = true;
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            int number = int.Parse(labelLockCountDown.Text);
+            number--;
+            labelLockCountDown.Text = number.ToString();
+            if (number == 0)
+            {
+                labelLockInfo.Text = "Zeskanuj kod QR";
+                labelLockCountDown.Visible = false;
+                canReadAgain = true;
+                timer1.Enabled = false;
             }
         }
     }
