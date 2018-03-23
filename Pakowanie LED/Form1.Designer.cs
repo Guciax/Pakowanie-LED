@@ -50,6 +50,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timerEfficiency = new System.Windows.Forms.Timer(this.components);
+            this.button4 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -61,6 +62,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.panel1.Controls.Add(this.button4);
             this.panel1.Controls.Add(this.labelLockCountDown);
             this.panel1.Controls.Add(this.labelLockInfo);
             this.panel1.Controls.Add(this.button3);
@@ -270,13 +272,22 @@
             // 
             // timer1
             // 
-            this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // timerEfficiency
             // 
             this.timerEfficiency.Interval = 1000;
             this.timerEfficiency.Tick += new System.EventHandler(this.efficiencyTick);
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(752, 29);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(71, 68);
+            this.button4.TabIndex = 12;
+            this.button4.Text = "Zmień ilość w tym kartonie";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // Form1
             // 
@@ -330,6 +341,7 @@
         private System.Windows.Forms.Label labelLockCountDown;
         private System.Windows.Forms.Label labelLockInfo;
         private System.Windows.Forms.Timer timerEfficiency;
+        private System.Windows.Forms.Button button4;
     }
 }
 

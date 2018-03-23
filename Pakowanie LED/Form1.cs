@@ -49,7 +49,7 @@ namespace Pakowanie_LED
                     }
                     textBox1.Text = "";
                     canReadAgain = false;
-                    labelLockCountDown.Text = "2";
+                    labelLockCountDown.Text = "1";
                     labelLockCountDown.Visible = true;
                     labelLockInfo.Text = "Ponowny odczyt za:";
                     timer1.Enabled = true;
@@ -281,8 +281,8 @@ namespace Pakowanie_LED
         bool canReadAgain = true;
         private void timer1_Tick(object sender, EventArgs e)
         {
-            int number = int.Parse(labelLockCountDown.Text);
-            number--;
+            double number = double.Parse(labelLockCountDown.Text);
+            number=number-0.1;
             labelLockCountDown.Text = number.ToString();
             if (number == 0)
             {
@@ -304,6 +304,16 @@ namespace Pakowanie_LED
             {
                 labelEffciency.Text = Math.Round(Tools.CountModulesPerHour(packingPattern), 0).ToString() + @"/h";
             }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            ChangeBoxQty fm = new ChangeBoxQty(countPanles(), packingPattern);
+            fm.ShowDialog();
+
+            Tools.UpdateFoilAndSpacerCompletition(packingPattern);
+            pictureBox1.Image = Tools.DrawBitmap(packingPattern, pictureBox1);
+            label2.Text = Tools.CountLedPanels(packingPattern).ToString() + @"/" + countPanles();
         }
     }
 }
