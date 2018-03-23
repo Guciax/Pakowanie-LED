@@ -49,7 +49,7 @@ namespace Pakowanie_LED
                     }
                     textBox1.Text = "";
                     canReadAgain = false;
-                    labelLockCountDown.Text = "3";
+                    labelLockCountDown.Text = "2";
                     labelLockCountDown.Visible = true;
                     labelLockInfo.Text = "Ponowny odczyt za:";
                     timer1.Enabled = true;
@@ -215,6 +215,45 @@ namespace Pakowanie_LED
         {
             this.ActiveControl = textBox1;
         }
+
+        private void EditProgress(Int32 howManyInside)
+        {
+            foreach (var item in packingPattern)
+            {
+                if (howManyInside > 0)
+                {
+                    item.Value.CompletionTime = new DateTime();
+                    item.Value.Completed = true;
+                    if (item.Value.LayerName == "Warstwa wyrobów")
+                    {
+                        for (int i = 0; i < item.Value.ModuleQrCodes.Count; i++)
+                        {
+                            item.Value.ModuleQrCodes[i] = "";
+                            item.Value.ModuleCompletitionDate[i] = new DateTime(1900, 01, 01);
+                        }
+                    }
+                    howManyInside--;
+                }
+                else
+                {
+                    item.Value.CompletionTime = new DateTime(1900, 01, 01);
+                    item.Value.Completed = false;
+                    if (item.Value.LayerName == "Warstwa wyrobów")
+                    {
+                        for (int i = 0; i < item.Value.ModuleQrCodes.Count; i++)
+                        {
+                            item.Value.ModuleQrCodes[i] = "";
+                            item.Value.ModuleCompletitionDate[i] = new DateTime(1900, 01, 01);
+                        }
+                    }
+                }
+            }
+
+            Tools.UpdateFoilAndSpacerCompletition(packingPattern);
+            pictureBox1.Image = Tools.DrawBitmap(packingPattern, pictureBox1);
+            label2.Text = Tools.CountLedPanels(packingPattern).ToString() + @"/" + countPanles();
+        }
+
 
         private void button3_Click(object sender, EventArgs e)
         {
